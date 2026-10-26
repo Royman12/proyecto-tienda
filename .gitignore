@@ -1,0 +1,10 @@
+# Bases de datos H2 locales
+data/
+*.mv.db
+*.trace.db
+
+# Dependencias y builds
+node_modules/
+target/
+dist/
+.angular/
