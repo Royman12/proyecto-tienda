@@ -24,6 +24,11 @@ export class App implements OnInit {
     this.carrito().reduce((suma, item) => suma + item.precio, 0)
   );
 
+  // FUNCIONALIDAD B: cuenta los productos con stock menor o igual a su mínimo
+  productosStockBajo = computed(() =>
+    this.productos().filter(p => p.stock <= p.stockMinimo).length
+  );
+
   ngOnInit() {
     this.cargarProductos();
   }
@@ -55,15 +60,15 @@ export class App implements OnInit {
   }
 
 
-  reponerStock(producto: Producto) {
-    const cambiado = { ...producto, stock: producto.stock + 5 };
-    this.api.actualizar(cambiado).subscribe({
+  // FUNCIONALIDAD B: llama al endpoint de reponer 
+  reponerStock(evento: { id: number; cantidad: number }) {
+    this.api.reponer(evento.id, evento.cantidad).subscribe({
       next: (actualizado) => {
         this.reemplazarEnLista(actualizado);
-        this.mostrarMensaje('Stock de ' + actualizado.nombre + ' actualizado', false);
+        this.mostrarMensaje('Se repusieron ' + evento.cantidad + ' unidades de ' + actualizado.nombre, false);
       },
       error: (err: HttpErrorResponse) =>
-        this.mostrarMensaje(this.textoError(err, 'No se pudo actualizar'), true)
+        this.mostrarMensaje(this.textoError(err, 'No se pudo reponer'), true)
     });
   }
 
@@ -81,7 +86,7 @@ export class App implements OnInit {
         this.mostrarMensaje(this.textoError(err, 'No se pudo eliminar'), true)
     });
   }
-    // NUEVO: crear usando POST
+  // NUEVO: crear usando POST
   crearProducto(datos: Omit<Producto, 'id'>) {
     this.api.crear(datos).subscribe({
       next: (creado) => {

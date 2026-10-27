@@ -1,5 +1,7 @@
 <h1>Tienda de productos</h1>
 
+<p class="contador-stock-bajo">Productos con stock bajo: {{ productosStockBajo() }}</p>
+
 <div class="contenedor">
   <section class="grid-productos">
     @if (cargando()) {

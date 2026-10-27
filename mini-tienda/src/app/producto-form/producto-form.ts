@@ -14,8 +14,8 @@ export class ProductoForm {
   precio = signal(0);
   stock = signal(0);
   imagen = signal('');
+  stockMinimo = signal(2); // FUNCIONALIDAD B: por defecto 2
 
-  // Avisa al padre con un producto SIN id
   guardar = output<Omit<Producto, 'id'>>();
 
   enviar() {
@@ -23,12 +23,14 @@ export class ProductoForm {
       nombre: this.nombre(),
       precio: this.precio(),
       stock: this.stock(),
-      imagen: this.imagen()
+      imagen: this.imagen(),
+      stockMinimo: this.stockMinimo() // FUNCIONALIDAD B
     });
     // Limpiar el formulario
     this.nombre.set('');
     this.precio.set(0);
     this.stock.set(0);
     this.imagen.set('');
+    this.stockMinimo.set(2); // FUNCIONALIDAD B: vuelve al valor por defecto
   }
 }
