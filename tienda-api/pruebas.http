@@ -46,3 +46,30 @@ Content-Type: application/json
 
 ### 8. Eliminar el producto 5
 DELETE {{base}}/34
+
+### FUNCIONALIDAD B: Reposición controlada y alerta de stock bajo
+
+### B1. Reponer 5 unidades a la pera (id 3)
+# Esperado: 200, con "stock": 7
+POST {{base}}/3/reponer/5
+
+### B2. Reponer 30 unidades a la piña (id 2)
+# Esperado: 400 "La cantidad debe estar entre 1 y 20"
+POST {{base}}/2/reponer/30
+
+### B3. Reponer 20 unidades a la piña (ejecutar tres veces seguidas)
+# Esperado: 200 (stock 25), 200 (stock 45) y la tercera 409 (iría a 65)
+POST {{base}}/2/reponer/20
+
+### B4. Crear un producto con "stockMinimo": -1
+# Esperado: 400 "El stock mínimo no puede ser negativo"
+POST {{base}}
+Content-Type: application/json
+
+{
+  "nombre": "Producto de prueba",
+  "precio": 1000,
+  "stock": 5,
+  "imagen": "/imagenes/prueba.jpg",
+  "stockMinimo": -1
+}

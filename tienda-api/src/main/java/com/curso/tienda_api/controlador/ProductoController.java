@@ -50,7 +50,7 @@ public class ProductoController {
     // PUT /api/productos/3 con un JSON en el cuerpo
     @PutMapping("/{id}")
     public Producto actualizar(@PathVariable Long id,
-                               @Valid @RequestBody Producto producto) {
+            @Valid @RequestBody Producto producto) {
         return servicio.actualizar(id, producto);
     }
 
@@ -65,5 +65,12 @@ public class ProductoController {
     @PostMapping("/{id}/comprar")
     public Producto comprar(@PathVariable Long id) {
         return servicio.comprar(id);
+    }
+
+    // FUNCIONALIDAD B: POST /api/productos/{id}/reponer/{cantidad}
+    // /api/productos/3/reponer/5 -> repone 5 unidades a la pera
+    @PostMapping("/{id}/reponer/{cantidad}")
+    public Producto reponer(@PathVariable Long id, @PathVariable Integer cantidad) {
+        return servicio.reponer(id, cantidad);
     }
 }

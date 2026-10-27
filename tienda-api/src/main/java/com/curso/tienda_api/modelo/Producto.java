@@ -35,6 +35,11 @@ public class Producto {
     // Ruta de la imagen dentro de la carpeta public/ de Angular
     private String imagen;
 
+    // FUNCIONALIDAD B: a partir de este stock se considera "stock bajo"
+    @NotNull(message = "El stock mínimo es obligatorio")
+    @PositiveOrZero(message = "El stock mínimo no puede ser negativo")
+    private Integer stockMinimo = 2;
+
     // JPA exige un constructor vacío para poder crear los objetos
     public Producto() {
     }
@@ -48,18 +53,55 @@ public class Producto {
     }
 
     // Getters y setters: Spring los usa para convertir el objeto a JSON y de vuelta
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public Double getPrecio() { return precio; }
-    public void setPrecio(Double precio) { this.precio = precio; }
+    public String getNombre() {
+        return nombre;
+    }
 
-    public Integer getStock() { return stock; }
-    public void setStock(Integer stock) { this.stock = stock; }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-    public String getImagen() { return imagen; }
-    public void setImagen(String imagen) { this.imagen = imagen; }
+    public Double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
+    }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public Integer getStockMinimo() {
+        return stockMinimo;
+    }
+
+    public void setStockMinimo(Integer stockMinimo) {
+        this.stockMinimo = stockMinimo;
+    }
+
+    
+
+    
 }

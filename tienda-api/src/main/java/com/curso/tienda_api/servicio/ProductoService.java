@@ -50,7 +50,6 @@ public class ProductoService {
         repositorio.delete(existente);
     }
 
-    
     @Transactional
     public Producto comprar(Long id) {
         Producto producto = buscarPorId(id);
@@ -59,6 +58,28 @@ public class ProductoService {
                     HttpStatus.CONFLICT, "Lo sentimos, ya no hay stock");
         }
         producto.setStock(producto.getStock() - 1);
+        return repositorio.save(producto);
+    }
+
+    // FUNCIONALIDAD B: reponer una cantidad elegida, con dos reglas
+    @Transactional
+    public Producto reponer(Long id, Integer cantidad) {
+        Producto producto = buscarPorId(id); // si no existe, lanza 404
+
+        // Regla 1: la cantidad debe estar entre 1 y 20
+        if (cantidad < 1 || cantidad > 20) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "La cantidad debe estar entre 1 y 20");
+        }
+
+        // Regla 2: el stock final no puede superar 50
+        int stockFinal = producto.getStock() + cantidad;
+        if (stockFinal > 50) {
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT, "El stock no puede superar las 50 unidades");
+        }
+
+        producto.setStock(stockFinal);
         return repositorio.save(producto);
     }
 }
