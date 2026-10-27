@@ -1,4 +1,5 @@
 <div class="tarjeta">
+  <img [src]="producto().imagen" [alt]="producto().nombre" class="img-producto" />
   <h3>{{ producto().nombre }}</h3>
   <p>Precio: ${{ producto().precio }}</p>
 
@@ -8,8 +9,11 @@
     <p class="agotado">Agotado</p>
   }
 
-  <button (click)="alHacerClic()" [disabled]="producto().stock === 0">
-    Comprar
-  </button>
+  <button (click)="alHacerClic()" [disabled]="producto().stock === 0">Comprar</button>
+
+  
+  <div class="acciones-admin">
+    <button class="btn-secundario" (click)="reponer.emit(producto())">+5 stock</button>
+    <button class="btn-peligro" (click)="eliminar.emit(producto().id)">Eliminar</button>
+  </div>
 </div>
-    

@@ -22,3 +22,27 @@ text-align: center;
 
 .disponible { color: green; }
 .agotado    { color: red; font-weight: bold; }
+
+.img-producto {
+  width: 100%;
+  height: 120px;
+  object-fit: cover; /* recorta sin deformar la foto */
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.acciones-admin {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.acciones-admin button {
+  flex: 1;
+  font-size: 0.8rem;
+}
+
+.btn-peligro {
+  background-color: #c0392b;
+  color: white;
+}

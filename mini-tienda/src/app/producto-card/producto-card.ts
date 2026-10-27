@@ -2,19 +2,18 @@ import { Component, input, output } from '@angular/core';
 import { Producto } from '../producto';
 
 @Component({
-  imports: [],
   selector: 'app-producto-card',
-  styleUrl: './producto-card.css',
+  imports: [],
   templateUrl: './producto-card.html',
+  styleUrl: './producto-card.css'
 })
 export class ProductoCard {
   producto = input.required<Producto>();
-  // Evento propio del componente. El <number> indica que enviará un número (el id)
   comprar = output<number>();
+  reponer = output<Producto>();
+  eliminar = output<number>();
 
   alHacerClic() {
-    // emit() dispara el evento y envía el id hacia el componente padre
     this.comprar.emit(this.producto().id);
   }
-
 }
